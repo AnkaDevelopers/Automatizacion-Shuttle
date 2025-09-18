@@ -7,7 +7,6 @@ from utils.seleccionar_kqs_observado import seleccionar_kqs_o_observado
 from modules.rpa_config_inicial import rpa_uno
 
 # IMPORTAR CONFIGURACIONES GLOBALES
-from utils.limpiar_carpeta import eliminar_archivos_en_carpeta
 import config.config as config
 
 # IMPORTACIONES ADICIONALES

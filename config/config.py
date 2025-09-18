@@ -60,8 +60,6 @@ imagenes_Btn_New_Proyect = {
 
 nombre_new_proyect = "GNSS"
 
-
-
 imagenes_Btn_Add = {
     r"C:\AUTOMATIZACION SHUTTLE\RPA\img\Btn_Add\IMG1.png",
     r"C:\AUTOMATIZACION SHUTTLE\RPA\img\Btn_Add\IMG2.png",

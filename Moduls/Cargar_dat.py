@@ -219,7 +219,5 @@ def rpa_uno(rta_pos,rta_base_temp):
     pyautogui.press('tab', presses=4, interval=0.1)
     pyautogui.press('space')
     pyautogui.press('enter')
-    pyautogui.press('tab', presses=2, interval=0.1)
-    pyautogui.press('left')
             
     return True    
