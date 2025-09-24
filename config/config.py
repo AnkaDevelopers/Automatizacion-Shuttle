@@ -1,4 +1,4 @@
-rutaProyecto = r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose"
+rutaProyecto = r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose" #02
 
 ruta_shuttle = [
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\CONFIG-SHUTTLES\gAirhawk_2000N_ULTRALIVIANO_CARLOS\Shuttle.exe", #0
@@ -104,6 +104,30 @@ imagenes_Btn_Kinematic = {
     r"C:\Automatizacion_Shuttle\Img\Btn_kinematic\IMG3.png",
     r"C:\Automatizacion_Shuttle\Img\Btn_kinematic\IMG4.png",
     r"C:\Automatizacion_Shuttle\Img\Btn_kinematic\IMG5.png",    
+}
+
+imagenes_Btn_Report = { 
+    r"C:\Automatizacion_Shuttle\Img\Btn_Report\IMG1.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Report\IMG2.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Report\IMG3.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Report\IMG4.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Report\IMG5.png",    
+}
+
+imagenes_Btn_Output = { 
+    r"C:\Automatizacion_Shuttle\Img\Btn_Output\IMG1.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Output\IMG2.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Output\IMG3.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Output\IMG4.png",
+    r"C:\Automatizacion_Shuttle\Img\Btn_Output\IMG5.png",    
+}
+
+imagenes_Btn_Report_Waring = { 
+    r"C:\Automatizacion_Shuttle\Img\Report_Waring\IMG1.png",
+    r"C:\Automatizacion_Shuttle\Img\Report_Waring\IMG2.png",
+    r"C:\Automatizacion_Shuttle\Img\Report_Waring\IMG3.png",
+    r"C:\Automatizacion_Shuttle\Img\Report_Waring\IMG4.png",
+    r"C:\Automatizacion_Shuttle\Img\Report_Waring\IMG5.png",    
 }
 
 

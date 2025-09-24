@@ -4,6 +4,7 @@
 # Importaciones de Utils necesarios
 # ------------------------------------------------------------------
 from Utils.puente_busqueda_img import puente_busqueda_img
+from Utils.cambio_en_pantalla import cambio_en_pantalla
 
 # ------------------------------------------------------------------
 # Importaciones globales y adicionales
@@ -31,7 +32,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
 
     #************************************************************
     # Primera busqueda buscar Boton File
-    print("Busqueda Boton File")
+    print("[DEBUG] Busqueda Boton File")
     busqueda_btn_file = puente_busqueda_img(config.imagenes_Btn_File, config.mensajes_busquedas_imagenes)
     
     # Validacion de busqueda Boton File
@@ -39,7 +40,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
 
     #************************************************************
     # Segunda busqueda buscar Boton New_Proyect
-    print("Busqueda Boton New Proyect")
+    print("[DEBUG] Busqueda Boton New Proyect")
     busqueda_btn_new_proyect = puente_busqueda_img(config.imagenes_Btn_New_Proyect, config.mensajes_busquedas_imagenes)
 
     # Validacion de busqueda Boton File
@@ -53,7 +54,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
     
     #************************************************************
     # Tercera busqueda buscar Boton Add
-    print("Busqueda Boton Add")
+    print("[DEBUG] Busqueda Boton Add")
     busqueda_btn_add = puente_busqueda_img(config.imagenes_Btn_Add, config.mensajes_busquedas_imagenes)
     
     # Validacion Boton Add
@@ -61,7 +62,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
     
     #************************************************************
     # Seleccionar archivo .kqs
-    print("Seleccionar archivo observado")
+    print("[DEBUG] Seleccionar archivo observado")
     
     # Separar la ruta de la carpeta del nombre del archivo
     ruta_carpeta_archivo_obs, nombre_archivo_obs = ruta_archivo_obs.rsplit("\\", 1)
@@ -87,7 +88,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
     
     #************************************************************
     # Cuarta busqueda buscar Boton Add
-    print("Busqueda Boton Add")
+    print("[DEBUG] Busqueda Boton Add")
     busqueda_btn_add = puente_busqueda_img(config.imagenes_Btn_Add, config.mensajes_busquedas_imagenes)
     
     # Validacion Boton Add
@@ -95,7 +96,7 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
     
     #************************************************************
     # Agregar archivo .kqs
-    print("Seleccionar archivo kqs")
+    print("[DEBUG] Seleccionar archivo kqs")
     
     # Separar la ruta de la carpeta del nombre del archivo
     ruta_carpeta_archivo_kqs, nombre_archivo_kqs = ruta_archivo_kqs.rsplit("\\",1)
@@ -116,24 +117,17 @@ def cargar_observado(ruta_archivo_obs, ruta_archivo_kqs):
     
     #************************************************************
     # Quinta busqueda buscar Boton Aceptar
-    print("Busqueda Boton Aceptar")
+    print("[DEBUG] Busqueda Boton Aceptar")
     busqueda_btn_add = puente_busqueda_img(config.imagenes_Btn_Aceptar, config.mensajes_busquedas_imagenes)
     
     # Validacion Boton Add
     if busqueda_btn_add in (None, False): return None
     
-    # Tiempo de espera carga de datos
-    time.sleep(120)
-    
-    #************************************************************
-    # Sexta busqueda buscar Boton Aceptar
-    print("Busqueda Boton Kinematic diferencial GNSS")
-    busqueda_btn_kinematic_gnss = puente_busqueda_img(config.imagenes_Btn_Kinematic, config.mensajes_busquedas_imagenes)
-    
-    # Validacion Boton Add
-    if busqueda_btn_kinematic_gnss in (None, False): return None
-    
     #***********************************************************
+    # Esperade carga de modelo
+    print("[DEBUG] Espera de carga de pantalla")
+    time.sleep(60)
+    
     
     # Si todo marcha bien
     return True

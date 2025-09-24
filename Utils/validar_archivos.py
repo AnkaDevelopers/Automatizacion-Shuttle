@@ -23,7 +23,7 @@ from typing import Optional
 #   - None -> Si no se encuentra ningún archivo válido o hay un error.
 # ------------------------------------------------------------------
 def validar_archivos(ruta_carpeta, extension) -> Optional[str]:
-    print('\n',ruta_carpeta,'\n')
+
     try:
         # ------------------------------------------------------------------
         # 1. Validar que la ruta exista y sea un directorio

@@ -25,7 +25,7 @@ def descomprimir_dat(ruta_archivo_dat):
     
     #************************************************************
     # Primera busqueda buscar Boton File
-    print("Busqueda Boton File...")
+    print("[DEBUG] Busqueda Boton File...")
     busqueda_btn_file = puente_busqueda_img(config.imagenes_Btn_File, config.mensajes_busquedas_imagenes )
         
     # Validacion de busqueda Boton File
@@ -33,7 +33,7 @@ def descomprimir_dat(ruta_archivo_dat):
          
     #************************************************************
     # segunda busqueda buscar Boton File Partition
-    print("Busqueda Boton File Partition...")
+    print("[DEBUG] Busqueda Boton File Partition...")
     busqueda_btn_file_partition  = puente_busqueda_img(config.imagenes_Btn_File_Partition, config.mensajes_busquedas_imagenes)
         
     # Validacion de busqueda Boton File Partition
@@ -41,7 +41,7 @@ def descomprimir_dat(ruta_archivo_dat):
     
     #************************************************************
     # Tercera busqueda buscar Boton Tres puntos
-    print("Busqueda Boton Tres Puntos...")
+    print("[DEBUG] Busqueda Boton Tres Puntos...")
     busqueda_btn_tres_puntos = puente_busqueda_img(config.imagenes_Btn_Tres_Puntos, config.mensajes_busquedas_imagenes)
     
     # Validacion de busqueda Boton Tres Puntos
@@ -76,22 +76,22 @@ def descomprimir_dat(ruta_archivo_dat):
     
     #************************************************************
     # Quinta busqueda buscar Ventana de Advertencia
-    print("Busqueda Ventana de Advertencia...")
+    print("[DEBUG] Busqueda Ventana de Advertencia...")
     busqueda_ventana_advertencia = puente_busqueda_img(config.imagenes_Shut_Waring, config.mensajes_busquedas_imagenes)
     
     # Validacion de busqueda Ventana de Advertencia
     if busqueda_ventana_advertencia in (None, False):
-        print("Esperando carga de archivos...")
+        print("[DEBUG] Esperando carga de archivos...")
         time.sleep(10)
     
     else:
         pyautogui.press('enter', presses=5, interval=0.1)
-        print("Esperando carga de archivos...")
+        print("[DEBUG] Esperando carga de archivos...")
         time.sleep(27)  
 
     #************************************************************
     # Sexta busqueda buscar Ventana Partition_Complete
-    print("Busqueda de Ventana Partition Complete...")
+    print("[DEBUG] Busqueda de Ventana Partition Complete...")
     busqueda_ventana_partition_complete = puente_busqueda_img(config.imagenes_Btn_Parti_Com, config.mensajes_busquedas_imagenes)
     
     # Validacion de busqueda Boton Parce
