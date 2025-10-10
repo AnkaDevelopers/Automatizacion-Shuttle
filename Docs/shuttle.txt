@@ -1,0 +1,94 @@
+2025-10-09 07:23:14 - #################-VALIDAR CARPETAS NECESARIAS-#################
+2025-10-09 07:23:14 - [INFO] Ruta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose
+2025-10-09 07:23:14 - [DEBUG] Subcarpetas encontradas: ['base', 'lidar', 'pos']
+2025-10-09 07:23:14 - [INFO] Todas las carpetas requeridas están presentes.
+2025-10-09 07:23:14 - [SUCCESS] Estructura de carpetas validada correctamente: {'base': 'C:\\Users\\camil-code\\Documents\\0-CARPETA-AUX-BOT-SHUTTLE\\INSUMOS\\automatizacion shuttle - jose\\Base', 'Pos': 'C:\\Users\\camil-code\\Documents\\0-CARPETA-AUX-BOT-SHUTTLE\\INSUMOS\\automatizacion shuttle - jose\\Pos'}
+2025-10-09 07:23:14 - #################-VALIDAR ARCHIVO .DAT-#################
+2025-10-09 07:23:14 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:23:14 - [DEBUG] Extensión normalizada: .dat
+2025-10-09 07:23:14 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224.dat, tamaño: 183196002 bytes
+2025-10-09 07:23:14 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224.dat (183196002 bytes)
+2025-10-09 07:23:14 - #################-VALIDAR ARCHIVO OBS-#################
+2025-10-09 07:23:14 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Base
+2025-10-09 07:23:14 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Base\69907735243O48.25O, tamaño: 126899404 bytes
+2025-10-09 07:23:14 - [SUCCESS] Archivo RINEX encontrado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Base\69907735243O48.25O (126899404 bytes)
+2025-10-09 07:23:14 - #################-ABRIR SHUTTLE-#################
+2025-10-09 07:23:14 - [INFO] Intentando abrir Shuttle con índice 2...
+2025-10-09 07:23:14 - [DEBUG] Ruta encontrada: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\CONFIG-SHUTTLES\PointCreater1_2000N_AK_ULTRA_MNZ\PointCreater1_2000N_AK_ULTRA_MNZ\Shuttle.exe
+2025-10-09 07:23:14 - [SUCCESS] Shuttle abierto correctamente desde: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\CONFIG-SHUTTLES\PointCreater1_2000N_AK_ULTRA_MNZ\PointCreater1_2000N_AK_ULTRA_MNZ\Shuttle.exe
+2025-10-09 07:23:24 - #################-DESCOMPRIMIR DAT-#################
+2025-10-09 07:23:25 - [DEBUG] Busqueda Boton File...
+2025-10-09 07:23:26 - [DEBUG] Busqueda Boton File Partition...
+2025-10-09 07:23:27 - [DEBUG] Busqueda Boton Tres Puntos...
+2025-10-09 07:23:32 - [DEBUG] Busqueda Ventana de Advertencia...
+2025-10-09 07:23:37 - ⚠ No se encontró el icono o el boton.
+2025-10-09 07:23:39 - [DEBUG] Esperando carga de archivos...
+2025-10-09 07:24:19 - [DEBUG] Busqueda de Ventana Partition 1 Complete...
+2025-10-09 07:24:20 - #################-VALIDAR ARCHIVO .KQS-#################
+2025-10-09 07:24:20 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:24:20 - [DEBUG] Extensión normalizada: .kqs
+2025-10-09 07:24:20 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_GNSS.kqs, tamaño: 107045334 bytes
+2025-10-09 07:24:20 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_GNSS.kqs (107045334 bytes)
+2025-10-09 07:24:20 - #################-VALIDAR ARCHIVO OBSERVADO-#################
+2025-10-09 07:24:20 - [DEBUG] Busqueda Boton File
+2025-10-09 07:24:22 - [DEBUG] Busqueda Boton New Proyect
+2025-10-09 07:24:24 - [DEBUG] Busqueda Boton Add
+2025-10-09 07:24:26 - [DEBUG] Seleccionar archivo observado
+2025-10-09 07:24:28 - [DEBUG] Busqueda Boton Add
+2025-10-09 07:24:29 - [DEBUG] Seleccionar archivo kqs
+2025-10-09 07:24:33 - [DEBUG] Busqueda Boton Aceptar
+2025-10-09 07:24:34 - [DEBUG] Espera de carga de pantalla
+2025-10-09 07:24:34 - [INFO] Monitoreando cambios en región=(560, 140, 800, 800) por hasta 300s...
+2025-10-09 07:24:40 - [DEBUG] Baseline guardada: ./debug_monitoreo\base_region.png
+2025-10-09 07:25:10 - [SUCCESS] Cambio detectado (ratio=0.0359).
+2025-10-09 07:25:11 - #################-GENERAR PRIMER REPORTE-#################
+2025-10-09 07:25:11 - [DEBUG] Busqueda Boton Kinematic diferencial GNSS
+2025-10-09 07:25:12 - [INFO] Esperando procesamiento Kinematic...
+2025-10-09 07:25:12 - [INFO] Monitoreando cambios en región=(560, 140, 800, 800) por hasta 300s...
+2025-10-09 07:25:17 - [DEBUG] Baseline guardada: ./debug_monitoreo\base_region.png
+2025-10-09 07:25:41 - [SUCCESS] Cambio detectado (ratio=0.0359).
+2025-10-09 07:25:41 - [DEBUG] Busqueda Boton Reportes
+2025-10-09 07:25:45 - [DEBUG] Busqueda Boton Output wizard
+2025-10-09 07:25:46 - [DEBUG] Busqueda Boton reportes o OUTPUT waring
+2025-10-09 07:25:51 - #################-VALIDAR CREACION PRIMER REPORTE GNSS-#################
+2025-10-09 07:25:51 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:25:51 - [DEBUG] Extensión normalizada: .txt
+2025-10-09 07:25:51 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\GNSS.txt, tamaño: 7642564 bytes
+2025-10-09 07:25:51 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\GNSS.txt (7642564 bytes)
+2025-10-09 07:25:51 - #################-VALIDAR PORCENTAJE DE ACIERTO REPORTE GNSS-#################
+2025-10-09 07:25:53 - [INFO] Buscando procesos que puedan tener abierto 'GNSS.txt'...
+2025-10-09 07:25:54 - [SUCCESS] Proceso cerrado: notepad.exe
+2025-10-09 07:25:54 - [INFO] EL porcentaje de conformidad es igual a 99.73
+2025-10-09 07:25:54 - [INFO] log: Validación funcionó
+2025-10-09 07:25:57 - #################-VALIDAR ARCHIVO IMU.imu -#################
+2025-10-09 07:25:57 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:25:57 - [DEBUG] Extensión normalizada: .imu
+2025-10-09 07:25:57 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_IMU.imu, tamaño: 74568580 bytes
+2025-10-09 07:25:57 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_IMU.imu (74568580 bytes)
+2025-10-09 07:25:57 - #################-VALIDAR ARCHIVO GNSS.TXT-#################
+2025-10-09 07:25:57 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:25:57 - [DEBUG] Extensión normalizada: .txt
+2025-10-09 07:25:57 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\GNSS.txt, tamaño: 7642564 bytes
+2025-10-09 07:25:57 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\GNSS.txt (7642564 bytes)
+2025-10-09 07:25:57 - #################-VALIDAR ARCHIVO KQS.evt-#################
+2025-10-09 07:25:57 - [INFO] Carpeta válida: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos
+2025-10-09 07:25:57 - [DEBUG] Extensión normalizada: .evt
+2025-10-09 07:25:57 - [DEBUG] Archivo candidato: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_GNSS.evt, tamaño: 176528 bytes
+2025-10-09 07:25:57 - [SUCCESS] Archivo seleccionado: C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose\Pos\20250831152224_GNSS.evt (176528 bytes)
+2025-10-09 07:25:57 - #################-CARGA AJUSTES-#################
+2025-10-09 07:25:57 - [DEBUG] Busqueda Boton Agregar Archivos
+2025-10-09 07:26:00 - [DEBUG] Busqueda Boton Imu
+2025-10-09 07:26:04 - [DEBUG] Busqueda Boton Results
+2025-10-09 07:26:29 - [DEBUG] Busqueda Boton Integration Gnss
+2025-10-09 07:26:31 - [INFO] Esperando procesamiento Kinematic...
+2025-10-09 07:26:31 - [INFO] Monitoreando cambios en región=(560, 140, 800, 800) por hasta 300s...
+2025-10-09 07:26:36 - [DEBUG] Baseline guardada: ./debug_monitoreo\base_region.png
+2025-10-09 07:29:29 - [SUCCESS] Cambio detectado (ratio=0.0389).
+2025-10-09 07:29:34 - [CAPTURA-FALLBACK] Guardada captura sin limpiar por error: module 'pyautogui' has no attribute '_pyautogui_imports'
+2025-10-09 07:29:34 - [DEBUG] Busqueda Boton Export Pos
+2025-10-09 07:31:40 - [DEBUG] Busqueda Boton Report Waring
+2025-10-09 07:31:46 - ⚠ No se encontró el icono o el boton.
+2025-10-09 07:31:55 - [INFO] Buscando procesos que puedan tener abierto 'Preciso_gnss'...
+2025-10-09 07:31:56 - [SUCCESS] Proceso cerrado: notepad.exe
+2025-10-09 07:41:56 - [INFO] Intentando cerrar procesos Shuttle en windows...
+2025-10-09 07:41:56 - [SUCCESS] Shuttle cerrado correctamente.
