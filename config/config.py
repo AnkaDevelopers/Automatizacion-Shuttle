@@ -3,8 +3,8 @@ rutaProyecto = [
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V1", #01 version del shuttle-01
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V2",#02 version del shuttle-01
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V3",#03 version del shuttle-01
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V1LIDAR\202510111336",#43 version del shuttle-01
 ]
-
 
 ruta_shuttle = [
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\CONFIG-SHUTTLES\PointCreater1_2000N_AK_ULTRA_MNZ\PointCreater1_2000N_AK_ULTRA_MNZ\Shuttle.exe",   #0
