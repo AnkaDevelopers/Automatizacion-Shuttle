@@ -161,20 +161,20 @@ ruta_texto = r"C:\Automatizacion_Shuttle\Docs\firma.txt"
 
 # Combinaciones ordenadas
 combinaciones_constelaciones = [
-    (True,  True,  False, False),   # GPS+GLO mejor acierto
+    (True,  True,  True,  True),    # GPS+GLO+GAL+BDS
+    (True,  False, True,  True),    # GPS+GAL+BDS
+    (False, True,  True,  True),    # GLO+GAL+BDS
+    (True,  True,  True,  False),   # GPS+GLO+GAL
+    (True,  True,  False, True),    # GPS+GLO+BDS
+    (True,  True,  False, False),   # GPS+GLO 
     (True,  False, True,  False),   # GPS+GAL
     (True,  False, False, True),    # GPS+BDS
     (False, True,  True,  False),   # GLO+GAL
     (False, True,  False, True),    # GLO+BDS
     (False, False, True,  True),    # GAL+BDS
-    (True,  True,  True,  False),   # GPS+GLO+GAL
-    (True,  True,  False, True),    # GPS+GLO+BDS
-    (True,  False, True,  True),    # GPS+GAL+BDS
-    (False, True,  True,  True),    # GLO+GAL+BDS
-    (True,  True,  True,  True),    # GPS+GLO+GAL+BDS
     (True,  False, False, False),   # GPS
-    (False, True,  False, False),   # GLO
     (False, False, True,  False),   # GAL
+    (False, True,  False, False),   # GLO
     (False, False, False, True),    # BDS
 ]
 

@@ -7,12 +7,14 @@ from typing import Optional
 import Config.config as config
 import pyautogui
 import time
+import math
 import os
 
 # ------------------------------------------------------------------
 # Importaciones de Modulos
 # ------------------------------------------------------------------
 from Monitor.log.log import agregar_log
+from Modules.b_gestion_shuttle import abrir_shuttle, cerrar_shuttle
 
 # ------------------------------------------------------------------
 # Importaciones de Utils
@@ -39,7 +41,17 @@ from Utils.tools.esperar_cambio_region import esperar_cambio_region
 
 #**************************************************************************
 def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
+    
+    # Obtiene el tamaño en bytes
+    tamaño_bytes = os.path.getsize(ruta_archivo_kqs)
 
+    # Convierte a MB
+    tamaño_mb = tamaño_bytes / (1024 * 1024)
+    agregar_log(f"Tamaño del archivo kqs: {tamaño_bytes}")
+
+    # Calcula el tiempo máximo de carga (2.5 MB = 1 segundo)
+    tiempo_max_de_carga = int(tamaño_mb / 2.5)+5
+    
     #************************************************************
     # Primera busqueda buscar Boton File
     for i in range(12):
@@ -168,13 +180,17 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
     #***********************************************************
     # Esperade carga de modelo
     agregar_log("[DEBUG] Espera de carga de pantalla")
-       
+ 
     # Coordenada de pantalla
     centro_barra = (960,540)
 
-    if not esperar_cambio_region(mouse_pos=centro_barra, radio=400, timeout=300, intervalo=1.0, umbral=0.01):
+    estado_cambio =esperar_cambio_region(mouse_pos=centro_barra, radio=400, timeout=tiempo_max_de_carga, intervalo=1.0, umbral=0.0001)
+    
+    if estado_cambio is False:
         agregar_log("[WARN] No se detectó cambio visual en la barra de progreso tras timeout")
-        return False
+        print("no sirve esta combinacion")
+        cerrar_shuttle()
     # Si todo marcha bien
+    print(estado_cambio)
     return True
     
