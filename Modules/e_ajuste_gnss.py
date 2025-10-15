@@ -72,6 +72,12 @@ def ajuste_gnss(lista_carpetas_principales):
 
     resultado_mejor = intentar_cargar_mejor_config_existente(ruta_donde_guardar_configuraciones)
     if resultado_mejor is True:
+        # Ejecuto la cinematica y genero el reporte
+        estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales)
+        # Si ocurre algun error saltamos esa mascara
+        if estado_rpa_reporte is None:
+            agregar_log(f"[WARN] No se pudo generar reporte para configuracion. Continuando.")
+            return False
         return True
     
     # Cargar historial para evitar repetir

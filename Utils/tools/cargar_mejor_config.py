@@ -1,11 +1,12 @@
 # Utils/tools/cargar_mejor_config.py
 
 import os
-from typing import Optional
+from typing import Optional, Union
 from Monitor.log.log import agregar_log
 from Modules.e_aplicar_config_gnss import aplicar_constelaciones, aplicar_mascara
 from Utils.tools.config_constelaciones_helpers import ruta_config_txt
 
+MascaraType = Union[int, float]
 
 def intentar_cargar_mejor_config_existente(ruta_donde_guardar_configuraciones) -> Optional[bool]:
     """
@@ -55,11 +56,18 @@ def intentar_cargar_mejor_config_existente(ruta_donde_guardar_configuraciones) -
             def _to_bool(s: str) -> bool:
                 return s.strip().lower() in ("true", "1", "si", "sí")
 
+            def _to_mascara(s: str) -> MascaraType:
+                # Acepta "12", "12.0", "12,0", "12.5", "12,5"
+                s_norm = s.strip().replace(",", ".")
+                val = float(s_norm)
+                # Si es entero exacto (p.ej., 12.0), devuelvo int; si no, float
+                return int(val) if val.is_integer() else val
+
             gps = _to_bool(kv.get("GPS", "False"))
             glo = _to_bool(kv.get("GLO", "False"))
             gal = _to_bool(kv.get("GAL", "False"))
             bds = _to_bool(kv.get("BDS", "False"))
-            mascara = int(kv.get("MASCARA", "0"))
+            mascara: MascaraType = _to_mascara(kv.get("MASCARA", "0"))
 
             agregar_log(
                 f"[INFO] Se encontró configuración previa >99% ({mejor_porcentaje}). "

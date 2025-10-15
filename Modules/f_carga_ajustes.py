@@ -170,12 +170,11 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
     # Damos enter
     pyautogui.press('enter')
     #************************************************************  
+    # esperar creacion archivo
+    time.sleep(20)
+    
     # cerrar el txt
     cerrar_todos_txt("Preciso_gnss")
-    
-    
-
-    
     
     #************************************************************
     return True
