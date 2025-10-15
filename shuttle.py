@@ -135,7 +135,7 @@ def shuttle():
         agregar_log("Error en carga Ajuste")
         return   
 
-        pass
+    cerrar_shuttle()
  
  
  

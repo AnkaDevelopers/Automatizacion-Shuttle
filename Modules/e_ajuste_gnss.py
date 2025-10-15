@@ -167,7 +167,7 @@ def ajuste_gnss(lista_carpetas_principales):
                     continue
 
                 # Guardar configuraion a un archivo .txt que se guardara en ruta_donde_guardar_configuraciones con el nombre de CONFIG_CONSTELACIONES.txt
-                configuracion_const = (f"GPS={gps}, GLO={glo}, GAL={gal}, BDS={bds}, "f"MASCARA={mascara}, PORCENTAJE={porcentaje}")
+                configuracion_const = (f"GPS={gps}, GLO={glo}, GAL={gal}, BDS={bds}, "f"MASCARA={(mascara-0.5)}, PORCENTAJE={porcentaje}")
                 estado_guardar_configs_constelaciones = guardar_config_constelaciones_txt(ruta_donde_guardar_configuraciones,configuracion_const)
 
                 
@@ -215,7 +215,7 @@ def ajuste_gnss(lista_carpetas_principales):
                     continue
 
                 # Guardar configuraion a un archivo .txt que se guardara en ruta_donde_guardar_configuraciones con el nombre de CONFIG_CONSTELACIONES.txt
-                configuracion_const = (f"GPS={gps}, GLO={glo}, GAL={gal}, BDS={bds}, "f"MASCARA={mascara}, PORCENTAJE={porcentaje}")
+                configuracion_const = (f"GPS={gps}, GLO={glo}, GAL={gal}, BDS={bds}, "f"MASCARA={(mascara+0.5)}, PORCENTAJE={porcentaje}")
                 estado_guardar_configs_constelaciones = guardar_config_constelaciones_txt(ruta_donde_guardar_configuraciones,configuracion_const)
 
                 
