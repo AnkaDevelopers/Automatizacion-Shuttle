@@ -34,6 +34,9 @@ def shuttle():
     # ruta proyecto y ruta shuttle
     ruta_proyecto = config.rutaProyecto[4]
     ruta_shuttle = config.ruta_shuttle[1]
+    # ruta proyecto y ruta shuttle
+    ruta_proyecto = config.rutaProyecto[0]
+    ruta_shuttle = config.ruta_shuttle[0]
         
     #**********************************************************************
     # Validación de carpetación y archivos
@@ -43,6 +46,7 @@ def shuttle():
     # En caso de que retorne False
     if type(estado_insumos_proyecto) is int:
         print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+        cerrar_shuttle()
         return
 
     #**********************************************************************
@@ -53,6 +57,7 @@ def shuttle():
     # Validacion en caso de error al abrir el Shuttle
     if estado_shuttle is None:
         print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+        cerrar_shuttle()
         return
 
     #**********************************************************************
@@ -67,6 +72,7 @@ def shuttle():
         # Validacion en caso de error al extraer el .dat
         if estado_descomprimir_dat is None:  
             print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+            cerrar_shuttle()
             return
         
         # Agregamos la tuta al archivo .kqs
@@ -81,6 +87,7 @@ def shuttle():
     # Validacion en caso de error en la creacion de un nuevo proyecto
     if estado_creacion_proyecto is None:
         print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+        cerrar_shuttle()
         return
     #**********************************************************************
     # Validar combinaciones GNSS
@@ -89,13 +96,13 @@ def shuttle():
     agregar_log("#################-VALIDAR COMBINACION GNSS-#################")
     estado_combinaciones = ajuste_gnss(lista_carpetas_principales)
     
-    cerrar_shuttle()
     
     # Validacion en caso de error al ejecutar las configuraciones
     if estado_combinaciones is False:
         print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+        cerrar_shuttle()
         return 
-    
+
     #**********************************************************************
     # Buscar archivo IMU.imu       
     agregar_log("#################-VALIDAR ARCHIVO IMU.imu -#################")
