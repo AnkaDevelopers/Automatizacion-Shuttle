@@ -8,7 +8,7 @@ from typing import Tuple, Optional
 
 import numpy as np
 import pyautogui
-from PIL import ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw
 
 from Monitor.log.log import agregar_log
 
@@ -17,12 +17,12 @@ from Monitor.log.log import agregar_log
 # Descripción general del módulo
 # -----------------------------------------------------------------------------
 # Este módulo monitorea cambios visuales en una región de la pantalla centrada
-# en una posición del mouse. Toma capturas periódicas y calcula la diferencia
-# entre imágenes para determinar si hubo cambios significativos.
+# en una posición del mouse. Compara capturas sucesivas contra una imagen
+# baseline ya existente en disco (NO la vuelve a generar).
 #
 # Qué hace:
 # 1) Define una región cuadrada alrededor de `mouse_pos` acotada a la pantalla.
-# 2) Toma una captura base (baseline) y luego compara capturas sucesivas.
+# 2) Carga una baseline desde disco y compara capturas sucesivas contra ella.
 # 3) Si el porcentaje de píxeles distintos supera `umbral` antes de `timeout`,
 #    devuelve True; si no, devuelve False.
 # 4) Opcionalmente guarda capturas y “overlays” de la región y del estado.
@@ -34,10 +34,12 @@ from Monitor.log.log import agregar_log
 # - intervalo (float): segundos entre comparaciones.
 # - umbral (float): fracción mínima de píxeles distintos para considerar cambio.
 # - warmup (float): pausa inicial para estabilizar la UI.
+# - baseline_path (str): ruta absoluta de la baseline a usar (no se sobrescribe).
 # - debug_dir (str|None): carpeta para guardar evidencia (capturas).
 # - guardar_overlay (bool): si True, guarda pantallazos completos con la región
 #   marcada en rojo.
-# - mantener_solo_ultimos (bool): si True, limpia imágenes previas en cada run.
+# - mantener_solo_ultimos (bool): si True, limpia imágenes previas (sin borrar
+#   la baseline).
 #
 # Retornos:
 # - bool: True si se detecta cambio antes del timeout; False si no hay cambios.
@@ -56,10 +58,10 @@ def _asegurar_directorio(ruta: str) -> str:
 def _limpiar_imagenes_previas(directorio_debug: str) -> None:
     """
     Elimina las imágenes generadas previamente para conservar solo
-    las últimas capturas en cada ejecución.
+    las últimas capturas en cada ejecución. NO elimina la baseline.
     """
     nombres = [
-        "base_region.png",
+        # "base_region.png",  # NO eliminar baseline
         "base_overlay.png",
         "cambio_region.png",
         "cambio_diff.png",
@@ -91,6 +93,29 @@ def _guardar_overlay(region: Tuple[int, int, int, int], ruta_salida: str) -> Non
         agregar_log(f"[DEBUG] No se pudo guardar overlay: {e}")
 
 
+def _cargar_baseline_redimensionada(baseline_path: str, size: Tuple[int, int]) -> Optional[Image.Image]:
+    """
+    Carga la baseline desde disco y, si el tamaño no coincide con 'size',
+    la adapta en memoria (sin modificar el archivo original).
+    """
+    try:
+        if not os.path.exists(baseline_path):
+            agregar_log(f"[ERROR] Baseline no encontrada: {baseline_path}")
+            return None
+
+        img = Image.open(baseline_path).convert("RGB")
+        if img.size != size:
+            agregar_log(
+                f"[WARN] Tamaño baseline {img.size} != región {size}; "
+                "se ajustará en memoria para comparar."
+            )
+            img = img.resize(size, Image.NEAREST)
+        return img
+    except Exception as e:
+        agregar_log(f"[ERROR] No se pudo cargar baseline: {e}")
+        return None
+
+
 # -----------------------------------------------------------------------------
 # Función principal (NO cambiar el nombre)
 # -----------------------------------------------------------------------------
@@ -101,15 +126,14 @@ def esperar_cambio_region(
     intervalo: float = 1.0,
     umbral: float = 0.02,
     warmup: float = 5.0,
-    debug_dir: Optional[str] = "./debug_monitoreo",
+    baseline_path: str = r"C:\Automatizacion_Shuttle\debug_monitoreo\base_region.png",
+    debug_dir: Optional[str] = r"C:\Automatizacion_Shuttle\debug_monitoreo",
     guardar_overlay: bool = False,
     mantener_solo_ultimos: bool = True,
 ) -> bool:
     """
-    Espera cambios visuales en una región centrada en 'mouse_pos'.
-
-    Guarda capturas con nombres cortos en español y, si se solicita,
-    overlays de pantalla completa resaltando la región.
+    Espera cambios visuales en una región centrada en 'mouse_pos',
+    comparando contra una baseline ya existente en 'baseline_path'.
 
     Retorna:
         True  -> si detecta cambio (ratio > umbral) antes de 'timeout'.
@@ -135,7 +159,10 @@ def esperar_cambio_region(
         if mantener_solo_ultimos:
             _limpiar_imagenes_previas(debug_dir)
 
-    agregar_log(f"[INFO] Monitoreando cambios en región={region} por hasta {timeout}s...")
+    agregar_log(
+        f"[INFO] Monitoreando cambios en región={region} por hasta {timeout}s... "
+        f"Usando baseline: {baseline_path}"
+    )
 
     # -------------------------------------------------------------------------
     # 3) Pausa inicial para estabilizar la interfaz
@@ -146,18 +173,27 @@ def esperar_cambio_region(
     t0 = time.time()
 
     # -------------------------------------------------------------------------
-    # 4) Captura base (baseline)
+    # 4) Cargar baseline desde disco (NO se vuelve a capturar)
     # -------------------------------------------------------------------------
-    img_prev = pyautogui.screenshot(region=region)
-    if debug_dir:
-        ruta_base = os.path.join(debug_dir, "base_region.png")
+    # Tomar una captura actual SOLO para conocer el tamaño exacto de la región.
+    # (No se guarda; se usa para dimensionar baseline si hiciera falta.)
+    try:
+        probe = pyautogui.screenshot(region=region).convert("RGB")
+    except Exception as e:
+        agregar_log(f"[ERROR] No se pudo capturar la región para 'probe': {e}")
+        return False
+
+    img_prev = _cargar_baseline_redimensionada(baseline_path, probe.size)
+    if img_prev is None:
+        # No hay baseline válida -> abortar
+        return False
+
+    # Si se desea, guardar overlay de la baseline (sin sobrescribir la baseline)
+    if debug_dir and guardar_overlay:
         try:
-            img_prev.save(ruta_base)
-            agregar_log(f"[DEBUG] Baseline guardada: {ruta_base}")
-            if guardar_overlay:
-                _guardar_overlay(region, os.path.join(debug_dir, "base_overlay.png"))
+            _guardar_overlay(region, os.path.join(debug_dir, "base_overlay.png"))
         except Exception as e:
-            agregar_log(f"[DEBUG] No se pudo guardar baseline: {e}")
+            agregar_log(f"[DEBUG] No se pudo guardar base_overlay: {e}")
 
     # -------------------------------------------------------------------------
     # 5) Vigilancia periódica hasta timeout
@@ -166,16 +202,28 @@ def esperar_cambio_region(
         time.sleep(intervalo)
 
         # Captura actual
-        img_new = pyautogui.screenshot(region=region)
+        try:
+            img_new = pyautogui.screenshot(region=region).convert("RGB")
+        except Exception as e:
+            agregar_log(f"[ERROR] No se pudo capturar la región: {e}")
+            return False
+
+        # Asegurar coincidencia de tamaño con baseline cargada
+        if img_new.size != img_prev.size:
+            agregar_log(
+                f"[WARN] Tamaño de captura {img_new.size} != baseline {img_prev.size}; "
+                "se ajustará captura en memoria."
+            )
+            img_comp = img_new.resize(img_prev.size, Image.NEAREST)
+        else:
+            img_comp = img_new
 
         # Diferencia entre imágenes
-        diff = ImageChops.difference(img_prev, img_new)
+        diff = ImageChops.difference(img_prev, img_comp)
         arr = np.array(diff)
         nonzero = np.count_nonzero(arr)
         total = arr.size
         ratio = nonzero / total
-
-        # agregar_log(f"[DEBUG] Diferencia: {ratio:.4f}")
 
         # ¿Cambio significativo?
         if ratio > umbral:
@@ -190,8 +238,8 @@ def esperar_cambio_region(
                     agregar_log(f"[DEBUG] No se pudo guardar imágenes de cambio: {e}")
             return True
 
-        # Actualizar baseline para la siguiente comparación
-        img_prev = img_new
+        # Importante: NO actualizamos la baseline. Siempre comparamos contra la baseline fija.
+        # Esto responde al requisito de no modificar la baseline ya creada.
 
     # -------------------------------------------------------------------------
     # 6) Timeout: no se detectaron cambios
@@ -199,7 +247,7 @@ def esperar_cambio_region(
     agregar_log("[ERROR] Timeout: no hubo cambios visibles.")
     if debug_dir:
         try:
-            img_prev.save(os.path.join(debug_dir, "timeout_region.png"))
+            probe.save(os.path.join(debug_dir, "timeout_region.png"))
             if guardar_overlay:
                 _guardar_overlay(region, os.path.join(debug_dir, "timeout_overlay.png"))
         except Exception as e:
