@@ -3,7 +3,10 @@ rutaProyecto = [
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V1", #01 version del shuttle-01
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V2",#02 version del shuttle-01
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\CHORRERITAS-V3",#03 version del shuttle-01
-    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V1LIDAR\202510111336",#43 version del shuttle-01
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V3FOTOGRAMETRICO\202510111428",#04 version del shuttle-01
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V2LIDAR\202510111403",#05 version del shuttle-01
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V1LIDAR\202510111336",#06 version del shuttle-01
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - daniel",#07 version del shuttle-01
 ]
 
 ruta_shuttle = [

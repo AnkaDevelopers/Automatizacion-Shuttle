@@ -152,12 +152,15 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
         agregar_log("[WARN] No se detectó cambio visual en la barra de progreso tras timeout")
         return False
     
+    # esperar creacion archivo
+    time.sleep(60)
+    
     #************************************************************
     # Septima busqueda buscar Boton File
     for i in range(12):
         agregar_log("[DEBUG] Busqueda Boton Report Waring")
         Btn_Waring_Precises = puente_busqueda_img(config.imagenes_Btn_Waring_Precises, config.mensajes_busquedas_imagenes)
-        
+        time.sleep(1)
         # si Btn_Waring_Precises retorna None o false lo intenta otra vez
         if Btn_Waring_Precises not in (None, False): break
         
@@ -170,8 +173,8 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
     # Damos enter
     pyautogui.press('enter')
     #************************************************************  
-    # esperar creacion archivo
-    time.sleep(20)
+    
+    agregar_log("cerrar Preciso")
     
     # cerrar el txt
     cerrar_todos_txt("Preciso_gnss")
