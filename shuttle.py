@@ -32,11 +32,11 @@ from Utils.validar_archivos_carpetas.validar_archivos import validar_archivos
 def shuttle():
     
     # ruta proyecto y ruta shuttle
-    ruta_proyecto = config.rutaProyecto[0]
-    ruta_shuttle = config.ruta_shuttle[0]
-    # ruta proyecto y ruta shuttle
     ruta_proyecto = config.rutaProyecto[7]
     ruta_shuttle = config.ruta_shuttle[0]
+    # ruta proyecto y ruta shuttle
+    ruta_proyecto = config.rutaProyecto[1]
+    ruta_shuttle = config.ruta_shuttle[1]
         
     #**********************************************************************
     # Validación de carpetación y archivos

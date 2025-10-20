@@ -7,14 +7,13 @@ from typing import Optional
 import Config.config as config
 import pyautogui
 import time
-import math
 import os
 
 # ------------------------------------------------------------------
 # Importaciones de Modulos
 # ------------------------------------------------------------------
 from Monitor.log.log import agregar_log
-from Modules.b_gestion_shuttle import abrir_shuttle, cerrar_shuttle
+from Modules.b_gestion_shuttle import cerrar_shuttle
 
 # ------------------------------------------------------------------
 # Importaciones de Utils
@@ -64,7 +63,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton File tras 12 intentos.")
-        return None, None
+        return None
 
     #************************************************************
     # Segunda busqueda buscar Boton New_Proyect
@@ -78,7 +77,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton New_Proyect tras 12 intentos.")
-        return None, None
+        return None
 
             
     #************************************************************
@@ -99,7 +98,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Add tras 12 intentos.")
-        return None, None
+        return None
    
     #************************************************************
     # Seleccionar archivo .kqs
@@ -139,7 +138,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Add tras 12 intentos.")
-        return None, None
+        return None
     
     #************************************************************
     # Agregar archivo .kqs
@@ -175,7 +174,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Aceptar tras 12 intentos.")
-        return None, None
+        return None
     
     #***********************************************************
     # Esperade carga de modelo
@@ -188,8 +187,8 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
     
     if estado_cambio is False:
         agregar_log("[WARN] No se detectó cambio visual en la barra de progreso tras timeout")
-        print("no sirve esta combinacion")
-        cerrar_shuttle()
+        return False
+        
     # Si todo marcha bien
     print(estado_cambio)
     return True
