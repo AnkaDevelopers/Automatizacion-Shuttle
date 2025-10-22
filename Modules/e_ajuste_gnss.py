@@ -16,17 +16,18 @@ from Monitor.log.log import agregar_log
 from Modules.e_generar_reporte import generar_reporte
 from Modules.e_aplicar_config_gnss import aplicar_constelaciones , aplicar_mascara
 from Modules.b_gestion_shuttle import abrir_shuttle, cerrar_shuttle
+from Modules.d_creacion_proyecto import creacion_proyecto
 
 # ------------------------------------------------------------------
 # Importaciones de Utils
 # ------------------------------------------------------------------
-from Utils.tools.puente_busqueda_img import puente_busqueda_img
-from Utils.tools.esperar_cambio_region import esperar_cambio_region
-from Utils.tools.mensaje_en_pantalla import mensaje_en_pantalla
 from Utils.validar_archivos_carpetas.validar_txt import validar_txt
 from Utils.tools.agregar_config_constelaciones import guardar_config_constelaciones_txt
-from Utils.tools.config_constelaciones_helpers import ruta_config_txt, clave_config, cargar_configs_ejecutadas
+from Utils.tools.config_constelaciones_helpers import  clave_config, cargar_configs_ejecutadas
 from Utils.tools.cargar_mejor_config import intentar_cargar_mejor_config_existente
+
+
+combinazion_Crasheada = None
 
 
 # ------------------------------------------------------------------
@@ -62,8 +63,10 @@ combinaciones_constelaciones = [
 # ------------------------------------------------------------------
     
 
-def ajuste_gnss(lista_carpetas_principales):
+def ajuste_gnss(lista_carpetas_principales, tiempo_max_de_carga,ruta_shuttle, ruta_archivo_observado, ruta_archivo_kqs):
 
+    global combinazion_Crasheada 
+    
     # ruta donde quiero guardar mis configuraciones:
     ruta_donde_guardar_configuraciones = lista_carpetas_principales.get("Pos")
     if not ruta_donde_guardar_configuraciones:
@@ -73,9 +76,9 @@ def ajuste_gnss(lista_carpetas_principales):
     resultado_mejor = intentar_cargar_mejor_config_existente(ruta_donde_guardar_configuraciones)
     if resultado_mejor is True:
         # Ejecuto la cinematica y genero el reporte
-        estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales)
+        estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales, tiempo_max_de_carga)
         # Si ocurre algun error saltamos esa mascara
-        if estado_rpa_reporte is None:
+        if estado_rpa_reporte is (None,False):
             agregar_log(f"[WARN] No se pudo generar reporte para configuracion. Continuando.")
             return False
         return True
@@ -87,17 +90,55 @@ def ajuste_gnss(lista_carpetas_principales):
     
     for idx, (gps, glo, gal, bds) in enumerate(combinaciones_constelaciones, start=1):
 
+        combinazion_Crasheada = None
+        
         agregar_log(f"[INFO] Probando configuración #{idx}: GPS={gps}, GLO={glo}, GAL={gal}, BDS={bds}")
         
         # Probar máscaras 10..18
         for mascara in range(10, 19):
-
+            
+            if combinazion_Crasheada is True:
+                print("ignorar y guardar la combinazion como crasheada")
+                
+                # Cerramos el Shuttle
+                cerrar_shuttle()
+                
+                # tiempo para cerrar el shuttle
+                time.sleep(5) 
+                
+                # Abrir Shuttle
+                agregar_log("#################-ABRIR SHUTTLE-#################")
+                estado_shuttle = abrir_shuttle(ruta_shuttle)  #dev 0,1
+        
+                # Validacion en caso de error al abrir el Shuttle
+                if estado_shuttle is None: return False
+                
+                # tiempo para abrir el shuttle
+                time.sleep(5)   
+                
+                #**********************************************************************
+                # Creacion de proyecto
+                agregar_log("#################-CREACION DE UN NUEVO PROYECTO-#################")
+                estado_creacion_proyecto = creacion_proyecto(ruta_archivo_observado, ruta_archivo_kqs)
+        
+                # prueba otra configuracion
+                if estado_creacion_proyecto is False:
+                    cerrar_shuttle()
+                    combinazion_Crasheada = None 
+                    break
+                
+                # Hubo un fallo al crear el proyectyo
+                if estado_creacion_proyecto is None:
+                    cerrar_shuttle()
+                    combinazion_Crasheada = None
+                    break
+                
+            
             # Evitar repetir si ya existe en el historial
             clave = clave_config(gps, glo, gal, bds, mascara)
             if clave in configs_ejecutadas:
                 agregar_log(f"[INFO] Config ya ejecutada, se salta: {clave}")
                 continue
-            
             
             # Aplicar constelaciones
             estado_coinstelaciones = aplicar_constelaciones(gps, glo, gal, bds)
@@ -114,12 +155,19 @@ def ajuste_gnss(lista_carpetas_principales):
                 return False
                         
             # Ejecuto la cinematica y genero el reporte
-            estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales)
+            estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales,tiempo_max_de_carga)
+            
+            
             # Si ocurre algun error saltamos esa mascara
             if estado_rpa_reporte is None:
                 agregar_log(f"[WARN] No se pudo generar reporte para {clave}. Continuando.")
                 continue
-          
+            
+            #la idea esque si aqui retorna false esa combinacion la guarde como craheada
+            if estado_rpa_reporte is False:
+                combinazion_Crasheada = True
+                continue
+            
             # Validar reporte
             estado_validar_txt, porcentaje = validar_txt(ruta_txt_reporte)
             # Si ocurre algun error saltamos esa mascara
@@ -159,12 +207,18 @@ def ajuste_gnss(lista_carpetas_principales):
                     return False
                 
                 # Ejecuto la cinematica y genero el reporte
-                estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales)
+                estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales, tiempo_max_de_carga)
                 # Si ocurre algun error saltamos esa mascara
                 if estado_rpa_reporte is None:
                     agregar_log(f"[WARN] No se pudo generar reporte para {clave}. Continuando.")
                     continue
+                
+                #la idea esque si aqui retorna false esa combinacion la guarde como craheada
+                if estado_rpa_reporte is False:
+                    combinazion_Crasheada = True
+                    continue
             
+                
                 # Validar reporte
                 estado_validar_txt, porcentaje = validar_txt(ruta_txt_reporte)
                 # Si ocurre algun error saltamos esa mascara
@@ -207,7 +261,7 @@ def ajuste_gnss(lista_carpetas_principales):
                     return False
                 
                 # Ejecuto la cinematica y genero el reporte
-                estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales)
+                estado_rpa_reporte, ruta_txt_reporte = generar_reporte(lista_carpetas_principales,tiempo_max_de_carga)
                 # Si ocurre algun error saltamos esa mascara
                 if estado_rpa_reporte is None:
                     agregar_log(f"[WARN] No se pudo generar reporte para {clave}. Continuando.")

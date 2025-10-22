@@ -36,7 +36,7 @@ from Utils.validar_archivos_carpetas.gestion_archivos_txt import cerrar_todos_tx
 # Retorna:
 #   - True  -> si todo el flujo se completa correctamente.
 #   - None  -> si alguna búsqueda/acción crítica falla.
-def generar_reporte(lista_carpetas_principales):
+def generar_reporte(lista_carpetas_principales, tiempo_max_de_carga):
 
     #************************************************************
     # Primera busqueda buscar Boton Kinematic difrencial GNSS
@@ -59,9 +59,9 @@ def generar_reporte(lista_carpetas_principales):
     # Centro de pantalla
     centro_barra = (960,540)
     
-    if not esperar_cambio_region(mouse_pos=centro_barra, radio=400, timeout=300, intervalo=1.0, umbral=0.01):
+    if not esperar_cambio_region(mouse_pos=centro_barra, radio=400, timeout=tiempo_max_de_carga, intervalo=1.0, umbral=0.01):
         agregar_log("[WARN] No se detectó cambio visual en la barra de progreso tras timeout")
-        return None, None
+        return False, None
     
     #************************************************************
     # Segunda busqueda buscar Boton Reportes

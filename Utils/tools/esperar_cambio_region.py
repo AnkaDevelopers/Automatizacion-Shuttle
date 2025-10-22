@@ -131,6 +131,7 @@ def esperar_cambio_region(
     guardar_overlay: bool = False,
     mantener_solo_ultimos: bool = True,
 ) -> bool:
+    print(f"time {timeout}")
     """
     Espera cambios visuales en una región centrada en 'mouse_pos',
     comparando contra una baseline ya existente en 'baseline_path'.

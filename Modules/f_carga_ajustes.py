@@ -38,26 +38,38 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
 
     #************************************************************
     # Primera busqueda buscar Boton Agregar Archivos
-    agregar_log("[DEBUG] Busqueda Boton Agregar Archivos")
-    busqueda_btn_Nuevo_Archivo = puente_busqueda_img(config.imagenes_Btn_Nuevo_Archivo , config.mensajes_busquedas_imagenes)
-    
-    # Validacion Boton Agregar Archivos
-    if busqueda_btn_Nuevo_Archivo in (None, False): return None
-    
+    for i in range(12):
+        agregar_log("[DEBUG] Busqueda Boton Agregar Archivos")
+        busqueda_btn_Nuevo_Archivo = puente_busqueda_img(config.imagenes_Btn_Nuevo_Archivo , config.mensajes_busquedas_imagenes)
+        time.sleep(1)
+        # si busqueda_btn_Nuevo_Archivo retorna None o false lo intenta otra vez
+        if busqueda_btn_Nuevo_Archivo not in (None, False): break
+        
+        # si lo encoentra rompre el for
+    else:
+        agregar_log("[WARN] No se encontró Boton Agregar Archivos tras 12 intentos.")
+        return None
+   
     # Espera de carga 
     time.sleep(2)
-    
+
     #************************************************************
     # Segunda busqueda buscar Boton Imu
-    agregar_log("[DEBUG] Busqueda Boton Imu")
-    busqueda_btn_Imu = puente_busqueda_img(config.imagenes_Btn_Imu , config.mensajes_busquedas_imagenes)
-    
-    # Validacion Boton Imu
-    if busqueda_btn_Imu in (None, False): return None
-    
+    for i in range(12):
+        agregar_log("[DEBUG] Busqueda Boton Imu")
+        busqueda_btn_Imu = puente_busqueda_img(config.imagenes_Btn_Imu , config.mensajes_busquedas_imagenes)
+        time.sleep(1)
+        # si busqueda_btn_Imu retorna None o false lo intenta otra vez
+        if busqueda_btn_Imu not in (None, False): break
+        
+        # si lo encoentra rompre el for
+    else:
+        agregar_log("[WARN] No se encontró Boton Imu 12 intentos.")
+        return None
+   
     # Espera de carga 
     time.sleep(2)
-    
+
     #************************************************************
     # Ingresar Ruta Imu
     pyautogui.press("backspace")
@@ -67,14 +79,21 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
     
     #************************************************************
     # Tercera busqueda buscar Boton Results
-    agregar_log("[DEBUG] Busqueda Boton Results")
-    busqueda_btn_Results = puente_busqueda_img(config.imagenes_Btn_Results , config.mensajes_busquedas_imagenes)
-    
-    # Validacion Boton Results
-    if busqueda_btn_Results in (None, False): return None
-    
+    for i in range(12):
+        agregar_log("[DEBUG] Busqueda Boton Results")
+        busqueda_btn_Results = puente_busqueda_img(config.imagenes_Btn_Results , config.mensajes_busquedas_imagenes)
+        time.sleep(1)
+        # si busqueda_btn_Results retorna None o false lo intenta otra vez
+        if busqueda_btn_Results not in (None, False): break
+        
+        # si lo encoentra rompre el for
+    else:
+        agregar_log("[WARN] No se encontró Boton Results 12 intentos.")
+        return None
+   
     # Espera de carga 
-    time.sleep(2)
+    time.sleep(2)    
+
     
     #************************************************************
     # Ingresar Ruta Gnss.txt y Ruta KQS.evt
@@ -136,7 +155,7 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
     
     # Escribir nombre de archivo
     pyautogui.press('tab', presses=6, interval=0.2)
-    pyautogui.write(f'Preciso_gnss')
+    pyautogui.write(f'Pos_gnss')
     pyautogui.press('enter')
 
     # Seleccionar Pos como exportacion
@@ -167,7 +186,7 @@ def carga_ajuste(rutas_archivos, ruta_proyecto):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton File tras 12 intentos.")
-        return None, None
+        return None
 
     #************************************************************  
     # Damos enter

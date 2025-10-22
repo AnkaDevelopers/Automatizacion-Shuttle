@@ -175,7 +175,10 @@ def aplicar_mascara(valor_mascara: int | float):
     pyautogui.press('tab')
     pyautogui.write(f"{float(valor_mascara)}")
     # Aceptar configuración
-    pyautogui.press('tab')
+
+    pyautogui.press('tab', presses=3, interval=0.2)
+    pyautogui.press('enter')
+    pyautogui.press('tab', presses=2, interval=0.2)
     pyautogui.press('enter')
 
     return True

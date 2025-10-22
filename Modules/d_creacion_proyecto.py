@@ -49,7 +49,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
     agregar_log(f"Tamaño del archivo kqs: {tamaño_bytes}")
 
     # Calcula el tiempo máximo de carga (2.5 MB = 1 segundo)
-    tiempo_max_de_carga = int(tamaño_mb / 2.5)+5
+    tiempo_max_de_carga = int(tamaño_mb / 1.5)+60
     
     #************************************************************
     # Primera busqueda buscar Boton File
@@ -63,7 +63,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton File tras 12 intentos.")
-        return None
+        return None, None
 
     #************************************************************
     # Segunda busqueda buscar Boton New_Proyect
@@ -77,7 +77,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton New_Proyect tras 12 intentos.")
-        return None
+        return None, None
 
             
     #************************************************************
@@ -98,7 +98,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Add tras 12 intentos.")
-        return None
+        return None, None
    
     #************************************************************
     # Seleccionar archivo .kqs
@@ -138,7 +138,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Add tras 12 intentos.")
-        return None
+        return None, None
     
     #************************************************************
     # Agregar archivo .kqs
@@ -174,7 +174,7 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
         # si lo encoentra rompre el for
     else:
         agregar_log("[WARN] No se encontró Boton Aceptar tras 12 intentos.")
-        return None
+        return None, None
     
     #***********************************************************
     # Esperade carga de modelo
@@ -184,12 +184,11 @@ def creacion_proyecto(ruta_archivo_obs, ruta_archivo_kqs):
     centro_barra = (960,540)
 
     estado_cambio =esperar_cambio_region(mouse_pos=centro_barra, radio=400, timeout=tiempo_max_de_carga, intervalo=1.0, umbral=0.0001)
-    
+
     if estado_cambio is False:
         agregar_log("[WARN] No se detectó cambio visual en la barra de progreso tras timeout")
-        return False
+        return False, tiempo_max_de_carga
         
     # Si todo marcha bien
-    print(estado_cambio)
-    return True
+    return True, tiempo_max_de_carga
     

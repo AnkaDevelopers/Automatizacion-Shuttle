@@ -15,6 +15,7 @@ from Modules.a_validar_elementos_necesarios import validar_elementos_requeridos_
 from Modules.b_gestion_shuttle import abrir_shuttle, cerrar_shuttle
 from Modules.c_descomprimir_dat import descomprimir_dat
 from Modules.d_creacion_proyecto import creacion_proyecto
+from Modules.d_mas_configs import d_mas_configs
 from Modules.e_ajuste_gnss import ajuste_gnss
 from Modules.f_carga_ajustes import carga_ajuste
 
@@ -35,7 +36,7 @@ def shuttle():
     ruta_proyecto = config.rutaProyecto[7]
     ruta_shuttle = config.ruta_shuttle[0]
     # ruta proyecto y ruta shuttle
-    ruta_proyecto = config.rutaProyecto[1]
+    ruta_proyecto = config.rutaProyecto[0]
     ruta_shuttle = config.ruta_shuttle[1]
         
     #**********************************************************************
@@ -80,21 +81,30 @@ def shuttle():
         
     #**********************************************************************
     # Creacion de proyecto
-    #time.sleep(100)
     agregar_log("#################-CREACION DE UN NUEVO PROYECTO-#################")
-    estado_creacion_proyecto = creacion_proyecto(ruta_archivo_observado, ruta_archivo_kqs)
+    estado_creacion_proyecto,tiempo_max_de_carga = creacion_proyecto(ruta_archivo_observado, ruta_archivo_kqs)
     
     # Validacion en caso de error en la creacion de un nuevo proyecto
     if estado_creacion_proyecto is None:
         print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
-        cerrar_shuttle()
         return
+    if estado_creacion_proyecto is False:
+        agregar_log("#################-POROBAR MAS CONFIGURACIONES-#################")
+        
+        # Intentar más configuraciones hasta que d_mas_configs() retorne True, continuar si False y abortar si None. Mantenerlo simple.
+        agregar_log(f"#################-PROBAR MAS CONFIGS)-#################")
+        resultado_config = d_mas_configs(lista_carpetas_principales,ruta_shuttle,ruta_archivo_observado, ruta_archivo_kqs, tiempo_max_de_carga)  # debe devolver True / False / None
+
+        if resultado_config is (None, False):
+           print("Envia correo al equipo de soporte sobre la falla") # hay que trabajar en esta parte
+           return 
+        
+        
     #**********************************************************************
     # Validar combinaciones GNSS
     
-    
     agregar_log("#################-VALIDAR COMBINACION GNSS-#################")
-    estado_combinaciones = ajuste_gnss(lista_carpetas_principales)
+    estado_combinaciones = ajuste_gnss(lista_carpetas_principales, tiempo_max_de_carga,ruta_shuttle, ruta_archivo_observado, ruta_archivo_kqs)
     
     
     # Validacion en caso de error al ejecutar las configuraciones

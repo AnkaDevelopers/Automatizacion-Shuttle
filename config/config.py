@@ -1,4 +1,6 @@
 rutaProyecto = [
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V2", #00 version del shuttle -00
+    r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - daniel", #00 version del shuttle -00
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\automatizacion shuttle - jose", #00 version del shuttle -00
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V3FOTOGRAMETRICO\202510111428",#01 version del shuttle-01
     r"C:\Users\camil-code\Documents\0-CARPETA-AUX-BOT-SHUTTLE\INSUMOS\V2LIDAR\202510111403",#02 version del shuttle-01
